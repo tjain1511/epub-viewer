@@ -9,6 +9,7 @@
     "epubjs": "^0.3.93",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-reader": "^2.0.12",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
