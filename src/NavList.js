@@ -23,12 +23,17 @@ const styles = {
   },
 };
 const NavList = ({ onNavItemClick, activeToc, item }) => {
-  console.log("check active toc", activeToc);
   return (
     <div style={styles.subContianer}>
       <div
         key={item.id}
-        style={activeToc === item.id ? styles.selectedItem : styles.item}
+        style={
+          activeToc &&
+          item.href &&
+          (activeToc?.endsWith(item.href) || item.href?.endsWith(activeToc))
+            ? styles.selectedItem
+            : styles.item
+        }
         onClick={() => {
           onNavItemClick(item);
         }}

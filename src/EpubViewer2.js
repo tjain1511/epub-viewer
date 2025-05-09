@@ -36,8 +36,6 @@ const EpubViewer = () => {
       });
       //used to load chapters labels and href
       book.loaded.navigation.then((toc) => {
-        console.log(toc);
-        console.log(book.canonical("text.xhtml"));
         setTocList(toc.toc);
       });
       book.loaded.spine.then((spine) => {
@@ -52,11 +50,13 @@ const EpubViewer = () => {
             );
           });
           setSections(spine.spineItems);
-
-          console.log("check all sections", spine.spineItems);
         });
-
-        console.log("check sections", spine.spineItems);
+      });
+      rendition.on("relocated", (dis) => {
+        console.log("check", dis);
+        //set first matched toc from toclist
+        if (dis.start.href) setActiveToc(dis.start.href);
+        else setActiveToc();
       });
       rendition.display();
       setRendition(rendition);
@@ -131,9 +131,8 @@ const EpubViewer = () => {
     return section?.href || "";
   };
   const onNavItemClick = (item) => {
-    console.log("check item clicked", item);
+    console.log("cehcek clicked", item);
     if (item.id && item.href) {
-      setActiveToc(item.id);
       rendition.display(getHrefForToc(item));
     }
   };
